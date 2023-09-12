@@ -170,7 +170,7 @@ const loadAllFileEntities = async () => {
   const interfaceText = Object.entries(entitiesAttributes)
     .map( ([name, attributes]) => formatInterface(name, attributes))
     .join("\n\n");
-  Deno.writeTextFileSync("./dist/MastodonApiV1Entities.ts", interfaceText, );
+  Deno.writeTextFileSync("./lib/MastodonApiV1Entities.ts", interfaceText, );
 }
 
 loadAllFileEntities();
