@@ -45,7 +45,7 @@ const parseDataType = (entityName: string, dataType: string): string => {
 const formatType = (type: string) =>
   type.replaceAll('::', '_');
 const formatKey = (key: string) => 
-  key.indexOf("-") >= 0 ? `'${formatType(key)}'` : formatType(key);
+  (key.indexOf("-") >= 0 || key.indexOf(':') >= 0) ? `'${formatType(key)}'` : formatType(key);
 
 const formatInterface = (name: string, attributes: AttributeSet) => `export interface ${formatType(name)} {
 ${ Object.entries(attributes).map( ([name, a]) =>
@@ -125,7 +125,7 @@ const loadFileEntity = async (fileEntity: string) => {
     }
     if (entity) {
       if (node.tagName === "H3") {
-        attributeName = node.id;
+        attributeName = node.textContent.split(' ')[0].trim();
         if (attributeName?.startsWith(`${entity}-`)) {
           attributeName = attributeName.slice(entity.length + 1);
         }
