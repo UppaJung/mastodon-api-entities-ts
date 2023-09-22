@@ -168,6 +168,7 @@ const loadAllFileEntities = async () => {
   const fileEntities = await loadFileEntityNames();
   await Promise.all(fileEntities.map( entityName => loadFileEntity(entityName)));
   const interfaceText = Object.entries(entitiesAttributes)
+    .sort( (a, b) => a[0] < b[0] ? -1 : 1 )
     .map( ([name, attributes]) => formatInterface(name, attributes))
     .join("\n\n");
   Deno.writeTextFileSync("./lib/MastodonApiV1Entities.ts",
